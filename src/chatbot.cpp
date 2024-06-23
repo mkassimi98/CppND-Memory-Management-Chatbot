@@ -45,6 +45,78 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// Task #2 - Copy constructor.
+ChatBot::ChatBot(const ChatBot &chatBot)
+{
+    std::cout << "ChatBot Constructor" << std::endl;
+
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+
+    // Deep copy image
+    _image = new wxBitmap(*chatBot._image);
+
+}
+
+// Task #2 - Copy assignment.
+ChatBot& ChatBot::operator=(const ChatBot &chatBot)
+{
+    if(this == &chatBot)
+    {
+        return *this;
+    }
+
+    std::cout << "ChatBot copy assigment" << std::endl;
+
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+
+    // Deep copy image
+    _image = new wxBitmap(*chatBot._image);
+
+    return *this;
+}
+
+// Task #2 - Move constructor.
+ChatBot::ChatBot(ChatBot &&chatBot)
+{
+    std::cout << "ChatBot move constructor" << std::endl;
+
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+
+    _chatLogic->SetChatBotHandle(this);
+
+    // Deep copy image
+    _image = new wxBitmap(*chatBot._image);
+
+    chatBot._chatLogic = nullptr;
+    chatBot._rootNode = nullptr;
+}
+
+// Task #2 - Move assigment.
+ChatBot& ChatBot::operator=(ChatBot &&chatBot)
+{
+    std::cout << "ChatBot move assigment" << std::endl;
+
+    if(this == &chatBot)
+    {
+        return *this;
+    }
+
+    _chatLogic = chatBot._chatLogic;
+    _rootNode = chatBot._rootNode;
+    _chatLogic->SetChatBotHandle(this);
+
+    // Deep copy image
+    _image = new wxBitmap(*chatBot._image);
+
+    chatBot._chatLogic = nullptr;
+    chatBot._rootNode = nullptr;
+
+    return *this;
+}
+
 ////
 //// EOF STUDENT CODE
 
