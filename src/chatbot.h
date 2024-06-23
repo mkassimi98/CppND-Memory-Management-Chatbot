@@ -12,6 +12,7 @@ class ChatBot
 private:
     // data handles (owned)
     wxBitmap *_image; // avatar image
+    wxBitmap* DeepCopyImage(const wxBitmap* image); // Deepcopy function
 
     // data handles (not owned)
     GraphNode *_currentNode;

@@ -45,6 +45,11 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// Deep copy image object
+wxBitmap* ChatBot::DeepCopyImage(const wxBitmap* image) {
+    return new wxBitmap(*image);
+}
+
 // Task #2 - Copy constructor.
 ChatBot::ChatBot(const ChatBot &chatBot)
 {
@@ -54,8 +59,7 @@ ChatBot::ChatBot(const ChatBot &chatBot)
     _rootNode = chatBot._rootNode;
 
     // Deep copy image
-    _image = new wxBitmap(*chatBot._image);
-
+    _image = DeepCopyImage(chatBot._image);
 }
 
 // Task #2 - Copy assignment.
@@ -66,13 +70,13 @@ ChatBot& ChatBot::operator=(const ChatBot &chatBot)
         return *this;
     }
 
-    std::cout << "ChatBot copy assigment" << std::endl;
+    std::cout << "ChatBot Copy Assignment Operator" << std::endl;
 
     _chatLogic = chatBot._chatLogic;
     _rootNode = chatBot._rootNode;
 
     // Deep copy image
-    _image = new wxBitmap(*chatBot._image);
+    _image = DeepCopyImage(chatBot._image);
 
     return *this;
 }
@@ -80,7 +84,7 @@ ChatBot& ChatBot::operator=(const ChatBot &chatBot)
 // Task #2 - Move constructor.
 ChatBot::ChatBot(ChatBot &&chatBot)
 {
-    std::cout << "ChatBot move constructor" << std::endl;
+    std::cout << "ChatBot Move Constructor" << std::endl;
 
     _chatLogic = chatBot._chatLogic;
     _rootNode = chatBot._rootNode;
@@ -88,16 +92,16 @@ ChatBot::ChatBot(ChatBot &&chatBot)
     _chatLogic->SetChatBotHandle(this);
 
     // Deep copy image
-    _image = new wxBitmap(*chatBot._image);
+    _image = DeepCopyImage(chatBot._image);
 
     chatBot._chatLogic = nullptr;
     chatBot._rootNode = nullptr;
 }
 
-// Task #2 - Move assigment.
+// Task #2 - Move assignment.
 ChatBot& ChatBot::operator=(ChatBot &&chatBot)
 {
-    std::cout << "ChatBot move assigment" << std::endl;
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
 
     if(this == &chatBot)
     {
@@ -109,7 +113,7 @@ ChatBot& ChatBot::operator=(ChatBot &&chatBot)
     _chatLogic->SetChatBotHandle(this);
 
     // Deep copy image
-    _image = new wxBitmap(*chatBot._image);
+    _image = DeepCopyImage(chatBot._image);
 
     chatBot._chatLogic = nullptr;
     chatBot._rootNode = nullptr;
